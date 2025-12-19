@@ -58,61 +58,20 @@ const NavBar = () => {
               </NavLink>
             </li>
 
-            {user && (
-              <>
-                <li>
-                  <NavLink
-                    className={({ isActive }) =>
-                      isActive
-                        ? "text-purple-700 font-bold underline underline-offset-4"
-                        : "hover:text-purple-700"
-                    }
-                    to="/profile"
-                  >
-                    My Profile
-                  </NavLink>
-                </li>
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-purple-700 font-bold underline underline-offset-4"
+                    : "hover:text-purple-700"
+                }
+                to="/funding"
+              >
+                Funding
+              </NavLink>
+            </li>
 
-                <li>
-                  <NavLink
-                    className={({ isActive }) =>
-                      isActive
-                        ? "text-purple-700 font-bold underline underline-offset-4"
-                        : "hover:text-purple-700"
-                    }
-                    to="/add-listing"
-                  >
-                    Add Listing
-                  </NavLink>
-                </li>
-
-                <li>
-                  <NavLink
-                    className={({ isActive }) =>
-                      isActive
-                        ? "text-purple-700 font-bold underline underline-offset-4"
-                        : "hover:text-purple-700"
-                    }
-                    to="/my-listing"
-                  >
-                    My Listing
-                  </NavLink>
-                </li>
-
-                <li>
-                  <NavLink
-                    className={({ isActive }) =>
-                      isActive
-                        ? "text-purple-700 font-bold underline underline-offset-4"
-                        : "hover:text-purple-700"
-                    }
-                    to="/my-orders"
-                  >
-                    My Orders
-                  </NavLink>
-                </li>
-              </>
-            )}
+            
           </ul>
         </div>
         <div className="navbar-end">

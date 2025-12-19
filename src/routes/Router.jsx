@@ -13,6 +13,10 @@ import DashBoard from "../pages/dashboard/DashBoard";
 import AddRequest from "../pages/addRequest/AddRequest";
 import AllUsers from "../pages/dashboard/allUsers/AllUsers";
 import PrivateRoute from "./PrivateRoute";
+import MyRequest from "../pages/dashboard/myRequest/MyRequest";
+import Funding from "../pages/Funding";
+import Profile from "../pages/profile/Profile";
+import UpdateProfile from "../pages/profile/UpdateProfile";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +26,11 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>
+      },
+
+      {
+        path: "/funding",
+        element: <Funding></Funding>
       },
     ]
     
@@ -39,17 +48,31 @@ const router = createBrowserRouter([
       },
 
       {
+        path: "/dashboard/profile",
+        element: <Profile></Profile>
+      },
+      {
+        path: "/dashboard/update-profile",
+        element: <UpdateProfile></UpdateProfile>
+      },
+
+      {
         path: "/dashboard/add-request",
         element: 
-        <PrivateRoute>
+        
         <AddRequest></AddRequest>
 
-        </PrivateRoute>
+        
       },
 
       {
         path: "/dashboard/users",
         element: <AllUsers></AllUsers>
+      },
+
+      {
+        path: "/dashboard/my-request",
+        element: <MyRequest></MyRequest>
       },
     ]
     

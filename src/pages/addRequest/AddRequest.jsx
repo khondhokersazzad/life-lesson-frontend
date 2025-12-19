@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import axios from "axios";
 import useAxiosSecure from "../../hooks/useAxiosSecure.jsx"
+import { toast } from "react-toastify";
 
 const AddRequest = () => {
   const { user } = useContext(AuthContext);
@@ -26,6 +27,8 @@ const AddRequest = () => {
 
   const handleRequest = (e) => {
     e.preventDefault();
+    const req_name = e.target.req_name.value;
+    const req_email = e.target.req_email.value;
     const rec_name = e.target.rec_name.value;
     const rec_blood = e.target.rec_blood.value;
     const rec_district = e.target.rec_district.value;
@@ -37,6 +40,8 @@ const AddRequest = () => {
     const req_time = e.target.req_time.value;
 
     const formData = {
+      req_name,
+      req_email,
       rec_name,
       rec_blood,
       rec_district,
@@ -48,11 +53,12 @@ const AddRequest = () => {
     };
 
     axiosSecure.post('/request',formData)
-    .then(res=> console.log(res.data))
-    .catch(err => console.log(err));
-
-
+    .then(res=> {
+      console.log(res.data)
+      toast.success("Request Successfully Submitted");
     
+    })
+    .catch(err => console.log(err));
   };
 
   return (
@@ -80,6 +86,7 @@ const AddRequest = () => {
                 type="text"
                 placeholder="Your Name"
                 value={user?.displayName}
+                name="req_name"
                 readOnly
                 className="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-2 text-gray-600 cursor-not-allowed"
               />
@@ -93,6 +100,7 @@ const AddRequest = () => {
                 type="email"
                 placeholder="your@email.com"
                 value={user?.email}
+                name="req_email"
                 readOnly
                 className="w-full bg-gray-100 border border-gray-300 rounded-lg px-4 py-2 text-gray-600 cursor-not-allowed"
               />

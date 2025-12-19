@@ -32,7 +32,7 @@ const Aside2 = () => {
             Dashboard
           </div>
 
-          <Link className="px-4 py-2 block rounded-lg hover:bg-gray-800 cursor-pointer">
+          <Link to="/dashboard/profile" className="px-4 py-2 block rounded-lg hover:bg-gray-800 cursor-pointer">
             Profile
           </Link>
 
@@ -54,9 +54,9 @@ const Aside2 = () => {
             </Link>
           )}
 
-          <div className="px-4 py-2 rounded-lg hover:bg-gray-800 cursor-pointer">
-            Reports
-          </div>
+          <Link to="/dashboard/my-request" className="px-4 py-2 rounded-lg hover:bg-gray-800 cursor-pointer">
+            My Request
+          </Link>
         </nav>
 
         {/* Footer */}
