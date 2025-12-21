@@ -116,7 +116,7 @@ const SearchRequest = () => {
                 Blood Request
               </h3>
               <span className="px-3 py-1 text-xs rounded-full bg-green-100 text-green-700 font-semibold uppercase">
-                Active
+                {b?.donation_status}
               </span>
             </div>
 
