@@ -19,6 +19,7 @@ import AllRequest from "../pages/allRequest/AllRequest";
 import RequestDetails from "../pages/requestDetails/RequestDetails";
 import UpdateRequest from "../pages/addRequest/UpdateRequest";
 import BloodDonationRequest from "../pages/bloodDonationRequest/BloodDonationRequest";
+import Error from "../pages/Error";
 
 const router = createBrowserRouter([
   {
@@ -127,6 +128,11 @@ const router = createBrowserRouter([
       },
     ],
   },
+
+  {
+    path: "/*",
+    element: <Error>Error404</Error>,
+  }
 ]);
 
 export default router;

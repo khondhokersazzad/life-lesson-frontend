@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+import { Link } from "react-router";
 
 const MyRequest = () => {
   const [totalRequest, setTotalRequest] = useState([]);
@@ -20,18 +22,50 @@ const MyRequest = () => {
   const pages = [...Array(numOfPage).keys()].map((e) => e + 1);
 
   const handlePrev = () => {
-  if (currentPage > 1) {
-    setCurrentPage(currentPage - 1);
-  }
-};
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
-const handleNext = () => {
-  if (currentPage < pages.length) {
-    setCurrentPage(currentPage + 1);
-  }
-};
+  const handleNext = () => {
+    if (currentPage < pages.length) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
 
-  console.log({ myRequest, totalRequest, numOfPage, pages });
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .delete(`/user-request/delete/${id}`)
+          .then((res) => {
+            if (res.data.deletedCount > 0) {
+              const filterData = myRequest.filter(
+                (request) => request._id !== id
+              );
+              setMyRequest(filterData);
+              Swal.fire(
+                "Deleted!",
+                "Your request has been deleted.",
+                "success"
+              );
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+            Swal.fire("Error!", "Could not delete the request.", "error");
+          });
+      }
+    });
+  };
 
   return (
     <div className="w-full p-4">
@@ -96,27 +130,40 @@ const handleNext = () => {
 
                 {/* Status  */}
                 <td>
-                  <span
-                    className={`badge badge-sm ${
-                      req.donation_status === "inprogress"
-                        ? "badge-info"
-                        : "badge-warning"
-                    } text-white`}
-                  >
-                    {req.donation_status || "pending"}
-                  </span>
-                </td>
+                    <span
+                      className={`badge badge-sm text-white ${
+                        req.donation_status === "inprogress"
+                          ? "badge-info"
+                          : req.donation_status === "completed"
+                          ? "badge-success"
+                          : req.donation_status === "canceled"
+                          ? "badge-error"
+                          : "badge-warning"
+                      }`}
+                    >
+                      {req.donation_status || "pending"}
+                    </span>
+                  </td>
 
                 {/* Actions */}
                 <td className="flex gap-2 justify-center">
-                  <button className="btn btn-xs btn-info btn-outline">
+                  <Link
+                    to={`/request-details/${req._id}`}
+                    className="btn btn-xs btn-info btn-outline"
+                  >
                     View
-                  </button>
-                  <button className="btn btn-xs btn-success btn-outline">
+                  </Link>
+                  <Link
+                    to={`/update-request-details/${req._id}`}
+                    className="btn btn-xs btn-success btn-outline"
+                  >
                     Edit
-                  </button>
-                  <button className="btn btn-xs btn-error btn-outline">
-                    Cancel
+                  </Link>
+                  <button
+                    onClick={() => handleDelete(req._id)}
+                    className="btn btn-xs btn-error btn-outline"
+                  >
+                    Delete
                   </button>
                 </td>
               </tr>

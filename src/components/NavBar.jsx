@@ -19,8 +19,9 @@ const NavBar = () => {
       <div className="flex justify-center items-center py-5 bg-gradient-to-br from-amber-100 via-orange-100 to-slate-100">
         <img src={BloodLink} alt="" height="120" width="120" />
       </div>
-      <div
-        className="navbar shadow-sm bg-gradient-to-r from-sky-100 via-purple-100 to-emerald-100
+      <div className="shadow-sm bg-gradient-to-r from-sky-100 via-purple-100 to-emerald-100">
+        <div
+        className="navbar container mx-auto px-6 
 
 
 "
@@ -123,12 +124,12 @@ const NavBar = () => {
               </li>
               <li>
                 <NavLink
-                  to="/all-products"
+                  to="/blood-donation-request"
                   className={({ isActive }) =>
                     isActive ? "text-purple-700 font-bold" : ""
                   }
                 >
-                  Pets & Supplies Page
+                  Blood Donation Request
                 </NavLink>
               </li>
               {user && (
@@ -140,9 +141,9 @@ const NavBar = () => {
                           ? "text-purple-700 font-bold underline underline-offset-4"
                           : "hover:text-purple-700"
                       }
-                      to="/profile"
+                      to="/search-request"
                     >
-                      My Profile
+                      Search
                     </NavLink>
                   </li>
 
@@ -153,37 +154,15 @@ const NavBar = () => {
                           ? "text-purple-700 font-bold underline underline-offset-4"
                           : "hover:text-purple-700"
                       }
-                      to="/add-listing"
+                      to="/funding"
                     >
-                      Add Listing
+                      Funding
                     </NavLink>
                   </li>
 
-                  <li>
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive
-                          ? "text-purple-700 font-bold underline underline-offset-4"
-                          : "hover:text-purple-700"
-                      }
-                      to="/my-listing"
-                    >
-                      My Listing
-                    </NavLink>
-                  </li>
+                  
 
-                  <li>
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive
-                          ? "text-purple-700 font-bold underline underline-offset-4"
-                          : "hover:text-purple-700"
-                      }
-                      to="/my-orders"
-                    >
-                      My Orders
-                    </NavLink>
-                  </li>
+                  
                 </>
               )}
             </ul>
@@ -226,6 +205,8 @@ const NavBar = () => {
           )}
         </div>
       </div>
+      </div>
+      
     </div>
   );
 };
