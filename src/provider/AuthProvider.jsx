@@ -46,7 +46,7 @@ const AuthProvider = ({ children }) => {
     
   },[user])
 
-  console.log(role, roleLoading, status);
+  // console.log(role, roleLoading, status);
   
 
   const authData = {

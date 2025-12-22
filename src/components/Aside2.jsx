@@ -24,6 +24,7 @@ const Aside2 = () => {
           <p className="text-xs text-gray-400 mt-1">
             Linking Lives Through Blood
           </p>
+           <h3 className="text-xl capitalize text-yellow-400 font-semibold py-3">{role}</h3>
         </div>
 
         {/* Navigation */}
@@ -65,6 +66,20 @@ const Aside2 = () => {
             >
               All Users
             </Link>
+
+             <Link
+              to="/dashboard/all-request"
+              className="px-4 py-2 rounded-lg hover:bg-gray-800 block cursor-pointer"
+            >
+              All Blood Requests
+            </Link>
+            </div>
+            
+          )}
+
+          {role == "volunteer" && (
+            <div>
+              
 
              <Link
               to="/dashboard/all-request"

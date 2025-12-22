@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const AllRequest = () => {
+  const { role } = useContext(AuthContext);
+  // console.log("this is from firebase", role);
   const [totalRequest, setTotalRequest] = useState(0);
   const [myRequest, setMyRequest] = useState([]);
   const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -42,12 +45,19 @@ const AllRequest = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/request/delete/${id}`)
+        axiosSecure
+          .delete(`/request/delete/${id}`)
           .then((res) => {
             if (res.data.deletedCount > 0) {
-              const filterData = myRequest.filter((request) => request._id !== id);
+              const filterData = myRequest.filter(
+                (request) => request._id !== id
+              );
               setMyRequest(filterData);
-              Swal.fire("Deleted!", "Your request has been deleted.", "success");
+              Swal.fire(
+                "Deleted!",
+                "Your request has been deleted.",
+                "success"
+              );
             }
           })
           .catch((err) => {
@@ -103,7 +113,9 @@ const AllRequest = () => {
             {loading ? (
               [...Array(5)].map((_, i) => (
                 <tr key={i}>
-                  <td colSpan="7"><div className="skeleton h-12 w-full mb-2"></div></td>
+                  <td colSpan="7">
+                    <div className="skeleton h-12 w-full mb-2"></div>
+                  </td>
                 </tr>
               ))
             ) : myRequest.length > 0 ? (
@@ -129,27 +141,73 @@ const AllRequest = () => {
                     </div>
                   </td>
                   <td>
-                    <span className={`badge badge-sm text-white ${
-                        req.donation_status === "inprogress" ? "badge-info" : 
-                        req.donation_status === "completed" ? "badge-success" : 
-                        req.donation_status === "canceled" ? "badge-error" : "badge-warning"
-                      }`}>
+                    <span
+                      className={`badge badge-sm text-white ${
+                        req.donation_status === "inprogress"
+                          ? "badge-info"
+                          : req.donation_status === "completed"
+                          ? "badge-success"
+                          : req.donation_status === "canceled"
+                          ? "badge-error"
+                          : "badge-warning"
+                      }`}
+                    >
                       {req.donation_status || "pending"}
                     </span>
                   </td>
                   <td className="flex gap-2 justify-center items-center">
-                    <Link to={`/request-details/${req._id}`} className="btn btn-xs btn-info btn-outline">View</Link>
-                    <Link to={`/update-request-details/${req._id}`} className="btn btn-xs btn-success btn-outline">Edit</Link>
-                    <button onClick={() => handleDelete(req._id)} className="btn btn-xs btn-error btn-outline">Delete</button>
+                    <Link
+                      to={`/request-details/${req._id}`}
+                      className="btn btn-xs btn-info btn-outline"
+                    >
+                      View
+                    </Link>
+                   {role === "admin" && (
+                        <>
+                          <Link
+                            to={`/update-request-details/${req._id}`}
+                            className="btn btn-xs btn-success btn-outline"
+                          >
+                            Edit
+                          </Link>
+                          <button
+                            onClick={() => handleDelete(req._id)}
+                            className="btn btn-xs btn-error btn-outline"
+                          >
+                            Delete
+                          </button>
+                        </>
+                      )}
 
                     {/* Status Toggle Buttons */}
                     {req.donation_status === "pending" && (
-                      <button onClick={() => handleStatusChange(req._id, 'inprogress')} className="btn btn-xs btn-warning">Start</button>
+                      <button
+                        onClick={() =>
+                          handleStatusChange(req._id, "inprogress")
+                        }
+                        className="btn btn-xs btn-warning"
+                      >
+                        Start
+                      </button>
                     )}
                     {req.donation_status === "inprogress" && (
                       <>
-                        <button onClick={() => handleStatusChange(req._id, 'completed')} className="btn btn-xs btn-success">Done</button>
-                        <button onClick={() => handleStatusChange(req._id, 'canceled')} className="btn btn-xs btn-error">Cancel</button>
+                        <button
+                          onClick={() =>
+                            handleStatusChange(req._id, "completed")
+                          }
+                          className="btn btn-xs btn-success"
+                        >
+                          Done
+                        </button>
+                        <button
+                          onClick={() =>
+                            handleStatusChange(req._id, "canceled")
+                          }
+                          className="btn btn-xs btn-error"
+                        >
+                          Cancel
+                        </button>
                       </>
                     )}
                   </td>
@@ -157,7 +215,9 @@ const AllRequest = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="7" className="text-center py-10 text-gray-500">No requests found.</td>
+                <td colSpan="7" className="text-center py-10 text-gray-500">
+                  No requests found.
+                </td>
               </tr>
             )}
           </tbody>
@@ -166,11 +226,31 @@ const AllRequest = () => {
 
       {/* Pagination */}
       <div className="flex justify-center mt-12 gap-4">
-        <button disabled={currentPage === 1} onClick={() => setCurrentPage((p) => Math.max(1, p - 1))} className="btn">Prev</button>
+        <button
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+          className="btn"
+        >
+          Prev
+        </button>
         {pages.map((p) => (
-          <button key={p} className={`btn ${p === currentPage ? "bg-[#435585] text-white" : ""}`} onClick={() => setCurrentPage(p)}>{p}</button>
+          <button
+            key={p}
+            className={`btn ${
+              p === currentPage ? "bg-[#435585] text-white" : ""
+            }`}
+            onClick={() => setCurrentPage(p)}
+          >
+            {p}
+          </button>
         ))}
-        <button disabled={currentPage === pages.length} onClick={() => setCurrentPage((p) => Math.min(pages.length, p + 1))} className="btn">Next</button>
+        <button
+          disabled={currentPage === pages.length}
+          onClick={() => setCurrentPage((p) => Math.min(pages.length, p + 1))}
+          className="btn"
+        >
+          Next
+        </button>
       </div>
     </div>
   );

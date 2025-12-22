@@ -5,7 +5,8 @@ import Swal from "sweetalert2";
 
 const AllUsers = () => {
   const { user } = useContext(AuthContext);
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([])
+
 
   const axiosSecure = useAxiosSecure();
 
@@ -45,6 +46,8 @@ const AllUsers = () => {
         Swal.fire("Error", "Failed to update status", "error");
       }
     };
+
+    
 
   return (
     <div>
