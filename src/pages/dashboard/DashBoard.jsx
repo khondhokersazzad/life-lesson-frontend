@@ -1,9 +1,10 @@
 import React from 'react';
+import AdminDashBoardHome from './AdminDashBoardHome';
 
 const DashBoard = () => {
   return (
     <div>
-      DashBoard
+      <AdminDashBoardHome></AdminDashBoardHome>
     </div>
   );
 };

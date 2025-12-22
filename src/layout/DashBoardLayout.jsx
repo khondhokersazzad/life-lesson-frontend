@@ -4,18 +4,18 @@ import Aside2 from '../components/Aside2';
 
 const DashBoardLayout = () => {
   return (
-    <div className="flex">
-  {/* Fixed Sidebar */}
-  <aside className="fixed left-0 top-0 h-screen w-64">
-    <Aside2 />
-  </aside>
+    <div className="flex min-h-screen bg-gray-50">
+      
+      <Aside2 />
 
-  {/* Scrollable Content */}
-  <main className="ml-0 md:ml-64 flex-1 h-screen overflow-y-auto">
-    <Outlet />
-  </main>
-</div>
-
+      {/* Main Content Area */}
+      
+      <main className="flex-1 w-full lg:ml-64 min-h-screen">
+        <div className="p-4 md:p-8">
+          <Outlet />
+        </div>
+      </main>
+    </div>
   );
 };
 

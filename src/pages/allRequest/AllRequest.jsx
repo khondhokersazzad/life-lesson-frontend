@@ -107,10 +107,10 @@ const AllRequest = () => {
           setSortStatus(e.target.value);
           console.log(sortStatus);
         }}
-        defaultValue="Pick a category"
+        defaultValue="All Status"
         className="select m-5"
       >
-        <option value="" disabled={false}>All category</option>
+        <option value="" disabled={false}>All status</option>
         <option>completed</option>
         <option>pending</option>
         <option>canceled</option>
