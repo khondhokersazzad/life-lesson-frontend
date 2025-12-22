@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Users, Droplets, Clock, CheckCircle, AlertCircle } from "lucide-react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { Link } from "react-router";
 
 const AdminDashBoardHome = () => {
   const [recentRequests, setRecentRequests] = useState([]);
@@ -103,7 +104,7 @@ const AdminDashBoardHome = () => {
       <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
         <div className="p-6 border-b border-gray-50 flex justify-between items-center">
           <h2 className="text-lg font-semibold text-gray-800">Recent Blood Requests</h2>
-          <button className="text-sm text-red-600 font-semibold hover:underline">View All</button>
+          <Link to='/dashboard/all-request' className="text-sm text-red-600 font-semibold hover:underline">View All</Link>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left">
