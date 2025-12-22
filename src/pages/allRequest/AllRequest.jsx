@@ -11,6 +11,7 @@ const AllRequest = () => {
   const [myRequest, setMyRequest] = useState([]);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortStatus, setSortStatus] = useState();
   const [loading, setLoading] = useState(true);
   const axiosSecure = useAxiosSecure();
 
@@ -68,6 +69,11 @@ const AllRequest = () => {
     });
   };
 
+  useEffect(() => {
+    axiosSecure.get(`/sort-request?donation_status=${sortStatus}`)
+      .then(res => setMyRequest(res.data))
+  }, [axiosSecure, sortStatus]);
+
   // Handle Status Change (Start, Done, Cancel)
   const handleStatusChange = async (id, status) => {
     try {
@@ -95,6 +101,21 @@ const AllRequest = () => {
       <h2 className="text-2xl font-semibold mb-4 text-gray-800">
         All Blood Requests
       </h2>
+
+      <select
+        onChange={(e) => {
+          setSortStatus(e.target.value);
+          console.log(sortStatus);
+        }}
+        defaultValue="Pick a category"
+        className="select m-5"
+      >
+        <option value="" disabled={false}>All category</option>
+        <option>completed</option>
+        <option>pending</option>
+        <option>canceled</option>
+        <option>inprogress</option>
+      </select>
 
       <div className="overflow-x-auto rounded-lg border border-gray-200 bg-white">
         <table className="table w-full">
