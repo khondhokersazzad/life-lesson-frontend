@@ -62,6 +62,35 @@ Fully optimized for mobile, tablet, and desktop
 
 ## Run the Project Locally
 
+To run the BloodLink frontend locally, ensure that Node.js (v16 or later) and npm are installed on your system.
+Clone the repository and navigate into the project directory using the following commands:
+
+
+```bash
+git clone https://github.com/khondhokersazzad/blood-link-frontend.git
+cd blood-link-frontend
+
+npm install
+
+VITE_API_URL=http://localhost:5000
+VITE_FIREBASE_API_KEY=your_firebase_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
+VITE_FIREBASE_PROJECT_ID=your_firebase_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+Make sure the backend server is running locally or that the API URL points to a deployed backend service. Start the development server:
+
+npm run dev
+The application will be available at:
+
+http://localhost:5173
+
+
+---
+
+
+
 > The backend is maintained in a separate repository and communicates via REST APIs.
 
 > https://github.com/khondhokersazzad/bloodlink-backend
