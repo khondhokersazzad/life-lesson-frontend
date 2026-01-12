@@ -13,7 +13,7 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [role, setRole] = useState(null);
+  const [role, setRole] = useState("");
   const [roleLoading, setRoleLoading] = useState(true);
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState("");
@@ -39,13 +39,14 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (!user) return;
-    axios.get(`https://blood-link-six-kappa.vercel.app/users/role/${user.email}`).then((res) => {
+    if (!user?.email) return;
+    axios.get(`http://localhost:5000/users/role/${user.email}`).then((res) => {
       setRole(res.data.role);
+      console.log(res);
       setRoleLoading(false);
       setStatus(res.data.status);
     });
-  }, [user]);
+  }, [user?.email]);
 
   // console.log(role, roleLoading, status);
 

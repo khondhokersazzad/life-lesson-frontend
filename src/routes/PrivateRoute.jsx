@@ -1,23 +1,24 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../provider/AuthProvider";
-import { Navigate } from "react-router";
+import { Navigate, useLocation } from "react-router";
 import Loading from "../components/Loading";
 
 const PrivateRoute = ({ children }) => {
-  const { user, loading, status , roleLoading} = useContext(AuthContext);
-
-  if (loading) {
-    return <Loading></Loading>;
+  const { user, loading, status, roleLoading } = useContext(AuthContext);
+  
+ 
+  // 1. Show loading if Firebase is checking auth 
+  // OR if we are waiting for the database role/status
+  if (loading || roleLoading) {
+    return <Loading />;
   }
 
-  if (roleLoading) {
-    return <Loading></Loading>;
-  }
+  
+if (!user) {
+  return <Navigate to="/auth/login"  />;
+}
 
-  if (!user || status !== "active") {
-    return <Navigate to="/auth/login" replace />;
-  }
-
+  
   return children;
 };
 

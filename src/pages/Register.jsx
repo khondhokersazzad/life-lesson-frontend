@@ -57,9 +57,15 @@ const Register = () => {
 
     const photoUrl = res.data.data.display_url;
 
-    const formData = { name, email, password, photoUrl, bloodgrp, upazilla, district };
-
-    
+    const formData = {
+      name,
+      email,
+      password,
+      photoUrl,
+      bloodgrp,
+      upazilla,
+      district,
+    };
 
     //Password validation check
     const pwdRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
@@ -70,7 +76,7 @@ const Register = () => {
       );
       return;
     }
-
+    console.log(email);
     if (res.data.success == true) {
       registerUserwithPass(email, password)
         .then((result) => {
@@ -82,11 +88,18 @@ const Register = () => {
           })
             .then(() => {
               setUser(user);
-              navigate("/");
+
               console.log(user);
               axios
-                .post("https://blood-link-six-kappa.vercel.app/users", formData)
-                //.then((res) => console.log(res.data))
+                .post("http://localhost:5000/users", formData)
+                .then((res) => {
+                  console.log(res);
+                  if (res.data.insertedId) {
+                    setTimeout(() => {
+                      navigate("/dashboard");
+                    }, 1000);
+                  }
+                })
                 .catch((err) => console.log(err));
             })
             .catch((error) => {
@@ -195,7 +208,9 @@ const Register = () => {
                   <option disabled={true}>Select Your Upazilla</option>
 
                   {upazila.map((u) => (
-                    <option value={u?.name} key={u?.id}>{u.name}</option>
+                    <option value={u?.name} key={u?.id}>
+                      {u.name}
+                    </option>
                   ))}
                 </select>
 
@@ -208,7 +223,9 @@ const Register = () => {
                   <option disabled={true}>Select Your District</option>
 
                   {district.map((d) => (
-                    <option value={d?.name} key={d?.id}>{d.name}</option>
+                    <option value={d?.name} key={d?.id}>
+                      {d.name}
+                    </option>
                   ))}
                 </select>
 
@@ -232,7 +249,7 @@ const Register = () => {
                 <button type="submit" className="btn btn-neutral mt-4">
                   Register
                 </button>
-                <button
+                {/* <button
                   onClick={googleSignup}
                   className="btn bg-white text-black border-[#e5e5e5]"
                 >
@@ -264,7 +281,7 @@ const Register = () => {
                     </g>
                   </svg>
                   Login with Google
-                </button>
+                </button> */}
               </fieldset>
               <h1 className="text-center text-lg mt-4 text-gray-600">
                 Already Registered?{" "}

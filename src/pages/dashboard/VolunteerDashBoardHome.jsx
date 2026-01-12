@@ -32,14 +32,14 @@ const VolunteerDashBoardHome = () => {
     {
       id: 1,
       label: "Pending Tasks",
-      value: requests.filter(r => r.donation_status === "pending").length,
+      value: requests?.filter(r => r.donation_status === "pending").length,
       icon: <Clock className="text-orange-500" />,
       color: "bg-orange-50",
     },
     {
       id: 2,
       label: "In Progress",
-      value: requests.filter(r => r.donation_status === "inprogress").length,
+      value: requests?.filter(r => r.donation_status === "inprogress").length,
       icon: <Droplets className="text-blue-500" />,
       color: "bg-blue-50",
     },

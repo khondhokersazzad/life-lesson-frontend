@@ -3,11 +3,13 @@ import { AuthContext } from "../../provider/AuthProvider";
 import axios from "axios";
 import useAxiosSecure from "../../hooks/useAxiosSecure.jsx";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
 const AddRequest = () => {
   const { user } = useContext(AuthContext);
 
   const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
 
   const [upazila, setUpazila] = useState([]);
   const [district, setDistrict] = useState([]);
@@ -55,8 +57,10 @@ const AddRequest = () => {
     axiosSecure
       .post("/request", formData)
       .then((res) => {
-        //console.log(res.data);
+        console.log(res.data);
         toast.success("Request Successfully Submitted");
+        navigate('/dashboard/my-request')
+        
       })
       .catch((err) => console.log(err));
   };

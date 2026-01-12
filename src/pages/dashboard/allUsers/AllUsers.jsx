@@ -9,7 +9,6 @@ const AllUsers = () => {
 
 
   const axiosSecure = useAxiosSecure();
-
   const fetchUsers = () => {
     axiosSecure.get("/users").then((res) => setUsers(res.data));
   };

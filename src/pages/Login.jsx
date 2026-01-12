@@ -108,7 +108,7 @@ const Login = () => {
                   Login
                 </button>
 
-                <button
+                {/* <button
                   type="button"
                   onClick={googleSignIn}
                   className="btn bg-white text-black border-[#e5e5e5]"
@@ -141,7 +141,7 @@ const Login = () => {
                     </g>
                   </svg>
                   Login with Google
-                </button>
+                </button> */}
               </fieldset>
               <h1 className="text-center text-lg mt-4 text-gray-600">
                 New here?{" "}
